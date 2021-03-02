@@ -27,18 +27,18 @@ set last_frame -1
 for { set i 0 } { $i <= $nf } { incr i } {
     puts [lindex $filelist $i]
     set file_name [lindex $filelist $i]
-	set crnt_file [glob $file_name-pbc.dcd]
+    set crnt_file [glob $file_name-pbc.dcd]
 
-	animate read dcd $crnt_file beg 0 end -1 waitfor all
+    animate read dcd $crnt_file beg 0 end -1 waitfor all
 
-	set num_steps [molinfo top get numframes]
+    set num_steps [molinfo top get numframes]
         
-	#set out_file $crnt_file-warter_count.txt
+    #set out_file $crnt_file-warter_count.txt
     set out_file $file_name-sodium_coord.txt
     
-	set fid [open $out_file w]
+    set fid [open $out_file w]
 
-	for {set frame 0} {$frame < $num_steps} {incr frame} {
+    for {set frame 0} {$frame < $num_steps} {incr frame} {
         puts "Frame: $frame"
         set a [atomselect top $selection frame $frame]
         set sod_center [measure center $a]
@@ -53,11 +53,11 @@ for { set i 0 } { $i <= $nf } { incr i } {
         
         puts $fid "$frame $sod_center $dist"
         $a delete
-	}
-	#Close written files
-	close $fid
+    }
+    #Close written files
+    close $fid
 
-	#set first_frame [expr {$first_frame + $num_steps}]
+    #set first_frame [expr {$first_frame + $num_steps}]
     animate delete all
 }
 

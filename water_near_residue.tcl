@@ -21,28 +21,28 @@ set distance [lindex $argv 3]
 set selection "(water within $distance of resid $resid and resname $resname) and oxygen"
 
 for { set i 1 } { $i <= $nf } { incr i } {
-	set crnt_file [glob ../../$code/results/namd/step7.${i}_production.dcd-pbc.dcd]
+    set crnt_file [glob ../../$code/results/namd/step7.${i}_production.dcd-pbc.dcd]
 
-	animate read dcd $crnt_file beg 0 end -1 waitfor all
+    animate read dcd $crnt_file beg 0 end -1 waitfor all
 
-	set num_steps [molinfo top get numframes]
+    set num_steps [molinfo top get numframes]
         
-	#set out_file $crnt_file-warter_count.txt
+    #set out_file $crnt_file-warter_count.txt
     set out_file $crnt_file-warter_${distance}_of_${resid}${resname}.txt
     
-	set fid [open $out_file w]
+    set fid [open $out_file w]
 
-	for {set frame 0} {$frame < $num_steps} {incr frame} {
+    for {set frame 0} {$frame < $num_steps} {incr frame} {
         puts "Frame: $frame"
         set a [atomselect top $selection frame $frame]
         set num [$a num]
         puts $fid "$frame $num"
         $a delete
-	}
-	#Close written files
-	close $fid
+    }
+    #Close written files
+    close $fid
 
-	#set first_frame [expr {$first_frame + $num_steps}]
+    #set first_frame [expr {$first_frame + $num_steps}]
     animate delete all
 }
 
