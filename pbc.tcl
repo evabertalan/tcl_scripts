@@ -20,7 +20,7 @@ for { set i 0 } { $i <= $nf } { incr i } {
     
     set fid [open $out_file w]
 
-	  animate read dcd $current_file beg 0 end -1 waitfor all
+    animate read dcd $current_file beg 0 end -1 waitfor all
     pbc wrap -all -compound res -center com -centersel protein 
 
     animate write dcd $out_file
