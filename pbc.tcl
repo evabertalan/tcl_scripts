@@ -1,9 +1,9 @@
 # Wraps all atoms into one periodic image
 # execute: vmd -dispdev text -e pbc.tcl -args PSF FILELIST TARGET_DCD> pbc_log.out 
 # e.g: vmd  -dispdev text -e pbc.tcl -args $psf $filelist $traget_dcd > pbc_log.out
-# PSF = /9cis/dcdfiles/read_protein_membrane_8x.psf
-# FILELIST = {'/Volumes/back_up/new_dcd/9cis/dcdfiles/eq_jsr_9cis_wt_n20.dcd /Volumes/back_up/new_dcd/9cis/dcdfiles/eq_jsr_9cis_wt_n21.dcd }
-# TARGET_DCD = /JSR1/9cis/dcd_wrap/ path to the folder where to save wrapped dcd
+# PSF = '/9cis/dcdfiles/read_protein_membrane_8x.psf'
+# FILELIST = {'/Volumes/back_up/new_dcd/9cis/dcdfiles/eq_jsr_9cis_wt_n20.dcd /Volumes/back_up/new_dcd/9cis/dcdfiles/eq_jsr_9cis_wt_n21.dcd'}
+# TARGET_DCD = '/JSR1/9cis/dcd_wrap/' path to the folder where to save wrapped dcd
 
 package require pbctools
 set psf [lindex $argv 0]
