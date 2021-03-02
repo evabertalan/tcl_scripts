@@ -1,14 +1,17 @@
 # Wraps all atoms into one periodic image
-#execute: vmd -dispdev text -e pbc.tcl -args CODE FILELIST > pbc_log.out 
-# e.g: CODE = 6b73B
-# e.g: FILELIST = {'../4N6HA/results/namd/step7.12_production.dcd ../4N6HA/results/namd/step7.13_production.dcd '}
+# execute: vmd -dispdev text -e pbc.tcl -args PSF FILELIST TARGET_DCD> pbc_log.out 
+# e.g: vmd  -dispdev text -e pbc.tcl -args $psf $filelist $traget_dcd > pbc_log.out
+# PSF = /9cis/dcdfiles/read_protein_membrane_8x.psf
+# FILELIST = {'/Volumes/back_up/new_dcd/9cis/dcdfiles/eq_jsr_9cis_wt_n20.dcd /Volumes/back_up/new_dcd/9cis/dcdfiles/eq_jsr_9cis_wt_n21.dcd }
+# TARGET_DCD = /JSR1/9cis/dcd_wrap/ path to the folder where to save wrapped dcd
 
 package require pbctools
-set code [lindex $argv 0]
+set psf [lindex $argv 0]
 set files [lindex $argv 1]
 set filelist [split [lindex $files 0]]
+set target_f [lindex $argv 2]
 
-mol new ../../$code/results/step5_assembly.xplor_ext.psf type psf
+mol new $psf type psf
 mol off top
 set sel [atomselect top all]
 set nf [llength $filelist]
@@ -16,7 +19,7 @@ set nf [llength $filelist]
 for { set i 0 } { $i <= $nf } { incr i } {
     set current_file [lindex $filelist $i]
     puts current_file
-    set out_file $current_file-pbc.dcd
+    set out_file $target_f$i-pbc.dcd
     
     set fid [open $out_file w]
 
